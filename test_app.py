@@ -1,6 +1,7 @@
-import requests
+from app import app
 
 def test_health_check():
-    response = requests.get("http://127.0.0.1:5000/health")
+    client = app.test_client()
+    response = client.get('/health')
     assert response.status_code == 200
-    assert response.text == "OK"
+    assert response.data.decode() == "OK"
